@@ -52,10 +52,10 @@ public class SecurityConfig {
         http.csrf()
         .disable().
         authorizeRequests().
-        antMatchers("/api/v1/authenticate","/api/v1/registration","/hello").permitAll().
+        antMatchers("/api/v1/authenticate","/api/v1/registration").permitAll().
         anyRequest().authenticated().and()
         .exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and()
-        .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+        .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and();
 
         http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
         

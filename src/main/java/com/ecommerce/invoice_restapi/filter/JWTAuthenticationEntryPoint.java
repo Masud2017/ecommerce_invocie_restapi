@@ -1,5 +1,6 @@
 package com.ecommerce.invoice_restapi.filter;
 
+
 import java.io.IOException;
 
 import javax.servlet.ServletException;
@@ -18,6 +19,7 @@ public class JWTAuthenticationEntryPoint implements AuthenticationEntryPoint {
     public void commence(HttpServletRequest request, HttpServletResponse response,
             AuthenticationException authException) throws IOException, ServletException {
         response.sendError(HttpServletResponse.SC_UNAUTHORIZED,"Unauthorized request");
+        
         
     }
     
