@@ -17,8 +17,7 @@ public class UserAddress {
     private Long id;
     @Column(name="address")
     private String address;
-    @Column(name= "email")
-    private String email;
+    
 
     @OneToOne
     @MapsId
@@ -42,13 +41,6 @@ public class UserAddress {
         this.address = address;
     }
 
-    public String getEmail() {
-        return this.email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
 
     public User getUser() {
         return this.user;

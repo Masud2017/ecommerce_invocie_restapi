@@ -9,6 +9,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "users")
 public class User {
@@ -19,8 +21,15 @@ public class User {
     private String firstName;
     @Column(name = "lname")
     private String lastName;
+    // @JsonIgnore
     @Column(name = "password")
-    private String passwrod;
+    private String password;
+    @Column(name= "email")
+    private String email;
+    @Column(name = "verification_code",length = 64)
+    private String verificationCode;
+    @Column(name="enabled")
+    private boolean enabled;
 
     // one to one relation ship with userAddress model
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
@@ -52,14 +61,15 @@ public class User {
         this.lastName = lastName;
     }
 
-    public String getPasswrod() {
-        return this.passwrod;
+
+    public String getPassword() {
+        return this.password;
     }
 
-    public void setPasswrod(String passwrod) {
-        this.passwrod = passwrod;
+    public void setPassword(String password) {
+        this.password = password;
     }
-
+    
     public UserAddress getUserAddress() {
         return this.userAddress;
     }
@@ -67,5 +77,35 @@ public class User {
     public void setUserAddress(UserAddress userAddress) {
         this.userAddress = userAddress;
     }
+
+    public String getEmail() {
+        return this.email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getVerificationCode() {
+        return this.verificationCode;
+    }
+
+    public void setVerificationCode(String verificationCode) {
+        this.verificationCode = verificationCode;
+    }
+
+    public boolean isEnabled() {
+        return this.enabled;
+    }
+
+    public boolean getEnabled() {
+        return this.enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+    
+
 
 }
