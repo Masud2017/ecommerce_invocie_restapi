@@ -1,12 +1,10 @@
 package com.ecommerce.invoice_restapi.model;
 
-import javax.annotation.Generated;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
@@ -69,6 +67,5 @@ public class User {
     public void setUserAddress(UserAddress userAddress) {
         this.userAddress = userAddress;
     }
-
 
 }
