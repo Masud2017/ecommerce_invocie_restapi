@@ -4,18 +4,17 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 @Entity
 @Table(name = "users")
 public class User {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @Column(name = "fname")
     private String firstName;
@@ -26,7 +25,7 @@ public class User {
     private String password;
     @Column(name= "email")
     private String email;
-    @Column(name = "verification_code",length = 64)
+    @Column(name = "verification_code")
     private String verificationCode;
     @Column(name="enabled")
     private boolean enabled;

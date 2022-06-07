@@ -23,6 +23,7 @@ public class AuthController {
     @Autowired
     private AuthService authService;
 
+
     @PostMapping("/authenticate")
     //ModelAttribute for accepting form data
     public String authenticate(@ModelAttribute AuthRequest authRequest) {
@@ -36,8 +37,8 @@ public class AuthController {
     }
 
     @GetMapping("/verify")
-    public void verify(@RequestParam String code) {
-
+    public User verify(@RequestParam("code") String code) {
+        return this.authService.verify(code);
     }
     
 }

@@ -8,5 +8,5 @@ public interface AuthService {
     public UsernamePasswordAuthenticationToken authenticate(String username,String password);
     public Integer unauthneticate();
     public User register(User user);
-    public boolean verify(String code);
+    public User verify(String code);
 }
