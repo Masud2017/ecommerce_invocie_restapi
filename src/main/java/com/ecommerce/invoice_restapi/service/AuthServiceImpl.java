@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -21,7 +22,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.ecommerce.invoice_restapi.dao.UserRepository;
+import com.ecommerce.invoice_restapi.model.JWTTokenModel;
 import com.ecommerce.invoice_restapi.model.User;
+import com.ecommerce.invoice_restapi.util.JWTUtil;
 
 import net.bytebuddy.utility.RandomString;
 
@@ -36,16 +39,29 @@ public class AuthServiceImpl implements AuthService {
     private UserRepository userRepository;
     @Autowired
     private AuthenticationManager authenticationManager;
+    @Autowired
+    JWTUtil jwtUtil;
     // @Autowired
     // private JavaMailSender javaMailSender;
 
     @Override
-    public UsernamePasswordAuthenticationToken authenticate(String username, String password) {
-        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(username, password,new ArrayList<>());
+    public JWTTokenModel authenticate(String username, String password) {
+        UserDetails userDetails = this.userDetailsUservice.loadUserByUsername(username);
+        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(username, password);
+        JWTTokenModel tokenModel = new JWTTokenModel();
+        
+        try {
+            authenticationManager.authenticate(token);
 
-        authenticationManager.authenticate(token);
+            String jwtToken = this.jwtUtil.generateToken(userDetails);
+            logger.info("token "+jwtToken);
+            tokenModel.setBearer(jwtToken);
+        } catch (AuthenticationException e) {
+            e.printStackTrace();
+        }
+        
 
-        return null;
+        return tokenModel;
     }
     
 
