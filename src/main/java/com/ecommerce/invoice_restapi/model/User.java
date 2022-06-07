@@ -10,6 +10,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 @Table(name = "users")
 public class User {
@@ -31,8 +33,10 @@ public class User {
     private boolean enabled;
 
     // one to one relation ship with userAddress model
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
-    @PrimaryKeyJoinColumn
+    // @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    // @PrimaryKeyJoinColumn
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
+    @JsonManagedReference
     private UserAddress userAddress;
 
 

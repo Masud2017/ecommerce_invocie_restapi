@@ -14,7 +14,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.security.web.util.matcher.RequestMatcher;
@@ -36,10 +35,16 @@ public class JWTReqeustFilter extends OncePerRequestFilter{
             throws ServletException, IOException {
 
         final RequestMatcher ignoredPaths = new AntPathRequestMatcher("/api/v1/authenticate");
+        final RequestMatcher ignoredPaths2 = new AntPathRequestMatcher("/api/v1/register");
+
         if (ignoredPaths.matches(request)) { 
             filterChain.doFilter(request, response);
             return;
        }
+       if (ignoredPaths2.matches(request)) { 
+        filterChain.doFilter(request, response);
+        return;
+   }
 
 
         String jwtToken = request.getHeader("Authorization");

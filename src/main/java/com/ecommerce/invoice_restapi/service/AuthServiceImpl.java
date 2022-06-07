@@ -2,11 +2,9 @@ package com.ecommerce.invoice_restapi.service;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Random;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,16 +12,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.ecommerce.invoice_restapi.dao.UserRepository;
 import com.ecommerce.invoice_restapi.model.JWTTokenModel;
 import com.ecommerce.invoice_restapi.model.User;
+import com.ecommerce.invoice_restapi.model.VerificationCodeModel;
 import com.ecommerce.invoice_restapi.util.JWTUtil;
 
 import net.bytebuddy.utility.RandomString;
@@ -64,14 +61,6 @@ public class AuthServiceImpl implements AuthService {
         return tokenModel;
     }
     
-
-    @Override
-    public Integer unauthneticate() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-
     @Override
     public com.ecommerce.invoice_restapi.model.User register(User user) {
         String verificationCode = RandomString.make(64);
@@ -118,7 +107,6 @@ public class AuthServiceImpl implements AuthService {
         return user;
     }
 
-    @Deprecated
     protected boolean isVerificationCodeExpired(String code) {
         Date time = null;
         
@@ -150,6 +138,44 @@ public class AuthServiceImpl implements AuthService {
 
             return false;
         }
+    }
+
+    @Override
+    public VerificationCodeModel forgetPassword(String username) {
+        User user = this.userRepository.findByEmail(username);
+        String verificationCode = RandomString.make(64);
+        SimpleDateFormat dateFormatter = new SimpleDateFormat("E-MM-dd'T'HH:mm:ss.SSSZ-yyyy");
+        
+        Calendar currentTime = Calendar.getInstance();
+        currentTime.add(Calendar.MINUTE, 5);
+        String currentTimeString = dateFormatter.format(currentTime.getTime()).toString();
+
+        String timeDateBase64 = Base64.getEncoder().encodeToString(currentTimeString.getBytes());
+        verificationCode = verificationCode + "."+timeDateBase64;
+
+        if (user != null) {
+            user.setVerificationCode(verificationCode);
+        }
+        this.userRepository.save(user);
+
+        VerificationCodeModel code = new VerificationCodeModel();
+        code.setCode(verificationCode);
+        return code;
+    }
+
+    @Override
+    public User verifyForgetPassword(String code,String newPassword) {
+        if (this.isVerificationCodeExpired(code)) {
+            User user = new User();
+            user.setEmail("Code is expired");
+            return user;
+        }
+        User user =this.userRepository.findByVerificationCode(code);
+        user.setPassword(this.passwordEncoder.encode(newPassword));
+
+        this.userRepository.save(user);
+
+        return user;
     }
     
 }

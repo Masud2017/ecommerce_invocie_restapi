@@ -26,13 +26,8 @@ public class SecurityConfig {
     JWTReqeustFilter jwtRequestFilter;
     @Autowired
     JWTAuthenticationEntryPoint jwtAuthenticationEntryPoint;
-   
-
-
-
     @Autowired
     private UserDetailsService userDetailsService;
-
     @Autowired
     private PasswordEncoder passwordEncoder;
 
@@ -51,7 +46,7 @@ public class SecurityConfig {
         http.csrf()
         .disable().
         authorizeRequests().
-        antMatchers("/api/v1/authenticate","/api/v1/register","/api/v1/verify").permitAll().
+        antMatchers("/api/v1/authenticate","/api/v1/register","/api/v1/verify","/api/v1/forgetpassword","/api/v1/verifyforgetpassword").permitAll().
         anyRequest().authenticated().and()
         .exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and()
         .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and();

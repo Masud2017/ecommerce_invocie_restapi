@@ -5,7 +5,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ecommerce.invoice_restapi.model.AuthRequest;
 import com.ecommerce.invoice_restapi.model.JWTTokenModel;
 import com.ecommerce.invoice_restapi.model.User;
+import com.ecommerce.invoice_restapi.model.VerificationCodeModel;
 import com.ecommerce.invoice_restapi.service.AuthService;
 
 @RestController
@@ -32,7 +32,6 @@ public class AuthController {
         return "Hello world this is an authenticated access";
     }
     @PostMapping("/authenticate")
-    //ModelAttribute for accepting form data
     public ResponseEntity<JWTTokenModel> authenticate(@RequestBody AuthRequest authRequest) {
         return ResponseEntity.ok(this.authService.authenticate(authRequest.getUsername(), authRequest.getPassword()));
     }
@@ -46,6 +45,17 @@ public class AuthController {
     @GetMapping("/verify")
     public User verify(@RequestParam("code") String code) {
         return this.authService.verify(code);
+    }
+
+    @GetMapping("/forgetpassword")
+    public ResponseEntity<VerificationCodeModel> forgetPassword(@RequestParam String username) {
+        logger.info(username);
+        return ResponseEntity.ok(this.authService.forgetPassword(username));
+    }
+
+    @GetMapping("/verifyforgetpassword")
+    public ResponseEntity<User> verifyForgetPassword(@RequestParam String code, @RequestParam String password) {
+        return ResponseEntity.ok(this.authService.verifyForgetPassword(code,password));
     }
     
 }
