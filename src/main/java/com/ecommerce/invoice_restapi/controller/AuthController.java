@@ -22,6 +22,7 @@ import com.ecommerce.invoice_restapi.model.JWTTokenModel;
 import com.ecommerce.invoice_restapi.model.User;
 import com.ecommerce.invoice_restapi.model.VerificationCodeModel;
 import com.ecommerce.invoice_restapi.service.AuthService;
+import com.ecommerce.invoice_restapi.util.BLackListedJWTTokenUtil;
 import com.ecommerce.invoice_restapi.dao.BlackListedJWTTokenRepository;
 
 @RestController
@@ -72,9 +73,9 @@ public class AuthController {
         model.setUsername("msmasud578@gmail.com");
         model.setJwtToken("nothinto show here");
         model.setValid(true);
-        
+        this.blackListedJWTTokenRepository.deleteAll();
 
-        this.blackListedJWTTokenRepository.save(model);
+        // this.blackListedJWTTokenRepository.save(model);
 
         Iterable<BlackListedJWTTokenModel> iter = this.blackListedJWTTokenRepository.findAll();
         List<BlackListedJWTTokenModel> list = new ArrayList<BlackListedJWTTokenModel>();
@@ -82,11 +83,14 @@ public class AuthController {
 
         itter.forEachRemaining(t -> list.add((BlackListedJWTTokenModel)t));
 
-        logger.info(this.blackListedJWTTokenRepository.findByUsername("msmasud578@gmail.com").getJwtToken());
+        // logger.info(this.blackListedJWTTokenRepository.findByUsername("msmasud578@gmail.com").getJwtToken());
         logger.info(this.blackListedJWTTokenRepository.existsByUsername("msmasud578@gmail.com") ? "hello everythis is true" : "everything is false");
+
+        // BLackListedJWTTokenUtil util = new BLackListedJWTTokenUtil();
+        // util.saveTheGeneratedToken();
+
         
 
-        // logger.info(this.blackListedJWTTokenRepository.findById(Long.valueOf("1756663874464356867") ).get().getJwtToken());
         return list;
     }
 

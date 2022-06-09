@@ -7,6 +7,7 @@ import java.util.Base64;
 import java.util.Calendar;
 import java.util.Date;
 
+import org.hibernate.annotations.common.util.impl.Log_.logger;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,11 +19,13 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.ecommerce.invoice_restapi.dao.BlackListedJWTTokenRepository;
 import com.ecommerce.invoice_restapi.dao.UserRepository;
 import com.ecommerce.invoice_restapi.model.BlackListedJWTTokenModel;
 import com.ecommerce.invoice_restapi.model.JWTTokenModel;
 import com.ecommerce.invoice_restapi.model.User;
 import com.ecommerce.invoice_restapi.model.VerificationCodeModel;
+import com.ecommerce.invoice_restapi.util.BLackListedJWTTokenUtil;
 // import com.ecommerce.invoice_restapi.util.BLackListedJWTTokenUtil;
 import com.ecommerce.invoice_restapi.util.JWTUtil;
 
@@ -41,8 +44,11 @@ public class AuthServiceImpl implements AuthService {
     private AuthenticationManager authenticationManager;
     @Autowired
     JWTUtil jwtUtil;
-    // @Autowired
-    // private BlackListedJWTTokenRepository blackListedJWTTokenRepository;
+    @Autowired
+    private BlackListedJWTTokenRepository blackListedJWTTokenRepository;
+    @Autowired
+    private BLackListedJWTTokenUtil bLackListedJWTTokenUtil;
+    
     
     // @Autowired
     // private JavaMailSender javaMailSender;
@@ -60,6 +66,9 @@ public class AuthServiceImpl implements AuthService {
             
             // BLackListedJWTTokenUtil blackListUtil = new BLackListedJWTTokenUtil(username, jwtToken, true);
             // blackListUtil.saveTheGeneratedToken();
+            // logger.info(this.blackListedJWTTokenRepository.existsByUsername("msmasud578@gmail.com") ? "hello everythis is true" : "everything is false");
+            this.bLackListedJWTTokenUtil.saveTheGeneratedToken(username, jwtToken, true);
+            
             
             logger.info("token "+jwtToken);
             tokenModel.setBearer(jwtToken);
