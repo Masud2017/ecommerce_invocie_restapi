@@ -5,7 +5,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
-import com.ecommerce.invoice_restapi.dao.UserAddressRepository;
 import com.ecommerce.invoice_restapi.dao.UserRepository;
 import com.ecommerce.invoice_restapi.model.ProfileModel;
 import com.ecommerce.invoice_restapi.model.User;
@@ -15,8 +14,7 @@ import com.ecommerce.invoice_restapi.model.UserAddress;
 public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
-    @Autowired
-    private UserAddressRepository userAddressRepository;
+    
 
     @Override
     public ProfileModel me() {
@@ -37,10 +35,15 @@ public class UserServiceImpl implements UserService {
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User user = this.userRepository.findByEmail(userDetails.getUsername());
 
-        // userAddress.setUser(user);
-        
-        // user.setUserAddress(userAddress);
-        // this.userRepository.save(user);
+        if(user.getUserAddress() != null) {
+            return user;            
+        } else {
+
+            userAddress.setUser(user);
+            
+            user.setUserAddress(userAddress);
+            this.userRepository.save(user);
+        }
 
         return user;
     }

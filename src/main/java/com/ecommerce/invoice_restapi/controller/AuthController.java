@@ -1,5 +1,9 @@
 package com.ecommerce.invoice_restapi.controller;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,10 +17,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ecommerce.invoice_restapi.model.AuthRequest;
+import com.ecommerce.invoice_restapi.model.BlackListedJWTTokenModel;
 import com.ecommerce.invoice_restapi.model.JWTTokenModel;
 import com.ecommerce.invoice_restapi.model.User;
 import com.ecommerce.invoice_restapi.model.VerificationCodeModel;
 import com.ecommerce.invoice_restapi.service.AuthService;
+import com.ecommerce.invoice_restapi.dao.BlackListedJWTTokenRepository;
 
 @RestController
 @RequestMapping(method = RequestMethod.GET,value = "/api/v1")
@@ -24,6 +30,8 @@ public class AuthController {
     private Logger logger = LoggerFactory.getLogger(AuthController.class);
     @Autowired
     private AuthService authService;
+    @Autowired
+    private BlackListedJWTTokenRepository blackListedJWTTokenRepository;
 
 
     
@@ -57,5 +65,30 @@ public class AuthController {
     public ResponseEntity<User> verifyForgetPassword(@RequestParam String code, @RequestParam String password) {
         return ResponseEntity.ok(this.authService.verifyForgetPassword(code,password));
     }
-    
+
+    @GetMapping("/test")
+    public List<BlackListedJWTTokenModel> test() {
+        BlackListedJWTTokenModel model = new BlackListedJWTTokenModel();
+        model.setUsername("msmasud578@gmail.com");
+        model.setJwtToken("nothinto show here");
+        model.setValid(true);
+        
+
+        this.blackListedJWTTokenRepository.save(model);
+
+        Iterable<BlackListedJWTTokenModel> iter = this.blackListedJWTTokenRepository.findAll();
+        List<BlackListedJWTTokenModel> list = new ArrayList<BlackListedJWTTokenModel>();
+        Iterator itter =  iter.iterator();
+
+        itter.forEachRemaining(t -> list.add((BlackListedJWTTokenModel)t));
+
+        logger.info(this.blackListedJWTTokenRepository.findByUsername("msmasud578@gmail.com").getJwtToken());
+        logger.info(this.blackListedJWTTokenRepository.existsByUsername("msmasud578@gmail.com") ? "hello everythis is true" : "everything is false");
+        
+
+        // logger.info(this.blackListedJWTTokenRepository.findById(Long.valueOf("1756663874464356867") ).get().getJwtToken());
+        return list;
+    }
+
+
 }

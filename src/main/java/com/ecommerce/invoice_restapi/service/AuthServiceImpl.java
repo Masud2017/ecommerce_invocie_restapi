@@ -1,5 +1,6 @@
 package com.ecommerce.invoice_restapi.service;
 
+import java.net.http.HttpRequest;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Base64;
@@ -18,9 +19,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.ecommerce.invoice_restapi.dao.UserRepository;
+import com.ecommerce.invoice_restapi.model.BlackListedJWTTokenModel;
 import com.ecommerce.invoice_restapi.model.JWTTokenModel;
 import com.ecommerce.invoice_restapi.model.User;
 import com.ecommerce.invoice_restapi.model.VerificationCodeModel;
+// import com.ecommerce.invoice_restapi.util.BLackListedJWTTokenUtil;
 import com.ecommerce.invoice_restapi.util.JWTUtil;
 
 import net.bytebuddy.utility.RandomString;
@@ -39,6 +42,9 @@ public class AuthServiceImpl implements AuthService {
     @Autowired
     JWTUtil jwtUtil;
     // @Autowired
+    // private BlackListedJWTTokenRepository blackListedJWTTokenRepository;
+    
+    // @Autowired
     // private JavaMailSender javaMailSender;
 
     @Override
@@ -51,6 +57,10 @@ public class AuthServiceImpl implements AuthService {
             authenticationManager.authenticate(token);
 
             String jwtToken = this.jwtUtil.generateToken(userDetails);
+            
+            // BLackListedJWTTokenUtil blackListUtil = new BLackListedJWTTokenUtil(username, jwtToken, true);
+            // blackListUtil.saveTheGeneratedToken();
+            
             logger.info("token "+jwtToken);
             tokenModel.setBearer(jwtToken);
         } catch (AuthenticationException e) {
@@ -174,9 +184,10 @@ public class AuthServiceImpl implements AuthService {
         user.setPassword(this.passwordEncoder.encode(newPassword));
 
         this.userRepository.save(user);
-
+        
         return user;
     }
+
     
 }
 
