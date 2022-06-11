@@ -20,7 +20,74 @@ public class InvoiceAddress {
 
     @OneToOne
     @JoinColumn(name="invoiceinfo_id")
-    @JsonManagedReference
+    @JsonBackReference
     private InvoiceInfo invoiceinfo;
+
+
+    private String zipCode;
+    private String address;
+    private String city;
+    private String district;
+    private String phoneNumber;
+
+
+    public Long getId() {
+        return this.id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public InvoiceInfo getInvoiceinfo() {
+        return this.invoiceinfo;
+    }
+
+    public void setInvoiceinfo(InvoiceInfo invoiceinfo) {
+        this.invoiceinfo = invoiceinfo;
+    }
     
+
+
+    public String getZipCode() {
+        return this.zipCode;
+    }
+
+    public void setZipCode(String zipCode) {
+        this.zipCode = zipCode;
+    }
+
+    public String getAddress() {
+        return this.address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getCity() {
+        return this.city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getDistrict() {
+        return this.district;
+    }
+
+    public void setDistrict(String district) {
+        this.district = district;
+    }
+
+
+    public String getPhoneNumber() {
+        return this.phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
 }
