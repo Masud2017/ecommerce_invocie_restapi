@@ -19,15 +19,16 @@ public class Beans {
     JedisConnectionFactory jedisConnectionFactory() {
        return new JedisConnectionFactory();
     }
-    // @Bean
-    // public RedisTemplate<String, Object> redisTemplate() {
-    //     RedisTemplate<String, Object> template = new RedisTemplate<>();
-    //     template.setConnectionFactory(jedisConnectionFactory());
-    //     return template;
-    // }
-  
-
+    
+    
 }
+
+// @Bean
+// public RedisTemplate<String, Object> redisTemplate() {
+//     RedisTemplate<String, Object> template = new RedisTemplate<>();
+//     template.setConnectionFactory(jedisConnectionFactory());
+//     return template;
+// }
 
 // @Bean
 // public JavaMailSender getJavaMailSender() {

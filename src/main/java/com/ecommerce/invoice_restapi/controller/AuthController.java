@@ -67,32 +67,32 @@ public class AuthController {
         return ResponseEntity.ok(this.authService.verifyForgetPassword(code,password));
     }
 
-    @GetMapping("/test")
-    public List<BlackListedJWTTokenModel> test() {
-        BlackListedJWTTokenModel model = new BlackListedJWTTokenModel();
-        model.setUsername("msmasud578@gmail.com");
-        model.setJwtToken("nothinto show here");
-        model.setValid(true);
-        this.blackListedJWTTokenRepository.deleteAll();
+    // @GetMapping("/test")
+    // public List<BlackListedJWTTokenModel> test() {
+    //     BlackListedJWTTokenModel model = new BlackListedJWTTokenModel();
+    //     model.setUsername("msmasud578@gmail.com");
+    //     model.setJwtToken("nothinto show here");
+    //     model.setValid(true);
+    //     this.blackListedJWTTokenRepository.deleteAll();
 
-        // this.blackListedJWTTokenRepository.save(model);
+    //     // this.blackListedJWTTokenRepository.save(model);
 
-        Iterable<BlackListedJWTTokenModel> iter = this.blackListedJWTTokenRepository.findAll();
-        List<BlackListedJWTTokenModel> list = new ArrayList<BlackListedJWTTokenModel>();
-        Iterator itter =  iter.iterator();
+    //     Iterable<BlackListedJWTTokenModel> iter = this.blackListedJWTTokenRepository.findAll();
+    //     List<BlackListedJWTTokenModel> list = new ArrayList<BlackListedJWTTokenModel>();
+    //     Iterator itter =  iter.iterator();
 
-        itter.forEachRemaining(t -> list.add((BlackListedJWTTokenModel)t));
+    //     itter.forEachRemaining(t -> list.add((BlackListedJWTTokenModel)t));
 
-        // logger.info(this.blackListedJWTTokenRepository.findByUsername("msmasud578@gmail.com").getJwtToken());
-        logger.info(this.blackListedJWTTokenRepository.existsByUsername("msmasud578@gmail.com") ? "hello everythis is true" : "everything is false");
+    //     // logger.info(this.blackListedJWTTokenRepository.findByUsername("msmasud578@gmail.com").getJwtToken());
+    //     logger.info(this.blackListedJWTTokenRepository.existsByUsername("msmasud578@gmail.com") ? "hello everythis is true" : "everything is false");
 
-        // BLackListedJWTTokenUtil util = new BLackListedJWTTokenUtil();
-        // util.saveTheGeneratedToken();
+    //     // BLackListedJWTTokenUtil util = new BLackListedJWTTokenUtil();
+    //     // util.saveTheGeneratedToken();
 
         
 
-        return list;
-    }
+    //     return list;
+    // }
 
 
 }

@@ -7,7 +7,6 @@ import java.util.Base64;
 import java.util.Calendar;
 import java.util.Date;
 
-import org.hibernate.annotations.common.util.impl.Log_.logger;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,9 +63,6 @@ public class AuthServiceImpl implements AuthService {
 
             String jwtToken = this.jwtUtil.generateToken(userDetails);
             
-            // BLackListedJWTTokenUtil blackListUtil = new BLackListedJWTTokenUtil(username, jwtToken, true);
-            // blackListUtil.saveTheGeneratedToken();
-            // logger.info(this.blackListedJWTTokenRepository.existsByUsername("msmasud578@gmail.com") ? "hello everythis is true" : "everything is false");
             this.bLackListedJWTTokenUtil.saveTheGeneratedToken(username, jwtToken, true);
             
             
