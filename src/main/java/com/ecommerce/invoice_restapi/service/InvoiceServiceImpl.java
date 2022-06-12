@@ -98,9 +98,23 @@ public class InvoiceServiceImpl implements InvoiceService {
     }
 
     @Override
-    public InvoiceInfo editInvoice(String invoiceId) {
-        // TODO Auto-generated method stub
-        return null;
+    public InvoiceInfo editInvoice(String invoiceId, InvoiceInfo invoiceInfo) {
+        InvoiceInfo invoice = this.invoiceInfoRepository.findById(Long.valueOf(invoiceId)).get();
+
+        invoice.setAddress(invoiceInfo.getAddress());
+        invoice.setId(invoiceInfo.getId());
+        invoice.setInvoiceProduct(invoiceInfo.getInvoiceProduct());
+        invoice.setCreatedAt(invoiceInfo.getCreatedAt());
+        invoice.setIsPaid(invoiceInfo.getIsPaid());
+        invoice.setPaymentType(invoiceInfo.getPaymentType());
+        invoice.setSubTotal(invoiceInfo.getSubTotal());
+        invoice.setTotal(invoiceInfo.getTotal());
+        invoice.setUser(invoiceInfo.getUser());
+        invoice.setUserName(invoiceInfo.getUserName());
+
+        this.invoiceInfoRepository.save(invoice);
+
+        return invoice;
     }
 
     @Override

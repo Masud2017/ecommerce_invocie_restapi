@@ -12,7 +12,7 @@ public interface InvoiceService {
     public InvoiceInfo addInvoice(InvoiceInfo invoiceInfo) throws ParseException;
     public InvoiceInfo getInvoice(String invoiceId);
     public DeletedResponseModel deleteInvoice(String invoiceId);
-    public InvoiceInfo editInvoice (String invoiceId);
+    public InvoiceInfo editInvoice (String invoiceId, InvoiceInfo invoiceInfo);
     public Set<InvoiceInfo> getAllInvoiceThisUserHas(); // this should be an authenticated access
     public Set<InvoiceInfo> getAllInvoiceThisUserHasPaged(Integer pageNo,Integer pageSize);
     public InvoiceGenerationStatus generateInvoice(Integer invoiceId);
