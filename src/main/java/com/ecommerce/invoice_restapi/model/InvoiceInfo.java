@@ -13,6 +13,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
@@ -40,7 +41,8 @@ public class InvoiceInfo {
     private Integer total;
 
     @ManyToOne
-    @JsonBackReference
+    // @JsonBackReference
+    @JsonIgnore
     @JoinColumn(name ="user_id")
     private User user;
     
@@ -120,6 +122,14 @@ public class InvoiceInfo {
 
     public void setTotal(Integer total) {
         this.total = total;
+    }
+
+    public User getUser() {
+        return this.user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
 }

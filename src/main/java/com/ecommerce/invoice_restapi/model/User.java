@@ -1,5 +1,7 @@
 package com.ecommerce.invoice_restapi.model;
 
+import java.util.Set;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -26,11 +28,11 @@ public class User {
     // @JsonIgnore
     @Column(name = "password")
     private String password;
-    @Column(name= "email")
+    @Column(name = "email")
     private String email;
     @Column(name = "verification_code")
     private String verificationCode;
-    @Column(name="enabled")
+    @Column(name = "enabled")
     private boolean enabled;
 
     // one to one relation ship with userAddress model
@@ -43,8 +45,7 @@ public class User {
     @OneToMany(mappedBy = "user")
     // @JsonManagedReference
     @JsonIgnore
-    private InvoiceInfo invoiceInfo;
-
+    private Set<InvoiceInfo> invoiceInfo;
 
     public Long getId() {
         return this.id;
@@ -70,7 +71,6 @@ public class User {
         this.lastName = lastName;
     }
 
-
     public String getPassword() {
         return this.password;
     }
@@ -78,7 +78,7 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
-    
+
     public UserAddress getUserAddress() {
         return this.userAddress;
     }
@@ -114,17 +114,14 @@ public class User {
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
     }
-    
 
-
-    public InvoiceInfo getInvoiceInfo() {
+    public Set<InvoiceInfo> getInvoiceInfo() {
         return this.invoiceInfo;
     }
 
-    public void setInvoiceInfo(InvoiceInfo invoiceInfo) {
+    public void setInvoiceInfo(Set<InvoiceInfo> invoiceInfo) {
         this.invoiceInfo = invoiceInfo;
     }
-
 
 
 }
