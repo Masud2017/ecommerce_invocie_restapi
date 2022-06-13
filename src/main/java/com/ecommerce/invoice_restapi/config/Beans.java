@@ -21,6 +21,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.common.io.Resources;
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 
 
@@ -53,7 +54,7 @@ public class Beans {
     @Bean
     public FirebaseOptions getFireBaseOptions() throws IOException {
         InputStream inputStream = new FileInputStream(Resources.getResource(this.fireBaseCred).getPath());
-        return FirebaseOptions.builder().setCredentials(GoogleCredentials.fromStream(inputStream)).setStorageBucket("invoicerestapi").build();
+        return FirebaseOptions.builder().setCredentials(GoogleCredentials.fromStream(inputStream)).build();
     }
     
 }

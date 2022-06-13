@@ -11,16 +11,20 @@ import java.util.Date;
 
 import javax.annotation.PostConstruct;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import com.google.cloud.storage.Blob;
 import com.google.cloud.storage.BlobId;
 import com.google.cloud.storage.BlobInfo;
 import com.google.common.io.Resources;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 import com.google.firebase.cloud.StorageClient;
+import com.google.firebase.messaging.Message;
 
 @Service
 public class FirebaseStorageService implements StorageService {
@@ -28,15 +32,20 @@ public class FirebaseStorageService implements StorageService {
     private FirebaseOptions options;
     @Value("${firebase.bucketname}")
     private String bucketName;
-    private String  fileNamePrefix = "nob";
-    private String backupFolderPath = "nothing/";
+    private String  fileNamePrefix = "data";
+    private String backupFolderPath = "csvfile/";
+
+    private StorageClient client;
+    private Logger logger = LoggerFactory.getLogger(FirebaseStorageService.class);
 
     @PostConstruct
     public void setup() {
+
         if (FirebaseApp.getApps().isEmpty()) {
-            
-            FirebaseApp.initializeApp(options,options.getStorageBucket());
+            logger.info(options.getStorageBucket());
+            FirebaseApp.initializeApp(options);
         }
+        this.client = StorageClient.getInstance();
     }
 
 
@@ -48,23 +57,34 @@ public class FirebaseStorageService implements StorageService {
         String timestamp = dateFormat.format(date);
 
         
-        String objectName = backupFolderPath + fileNamePrefix + "_" + timestamp + ".csv";
+        String objectName = backupFolderPath + fileNamePrefix + "_" + timestamp + ".pdf";
         BlobId blobId = BlobId.of(this.bucketName, objectName);
         BlobInfo blob = BlobInfo.newBuilder(blobId)
-        .setContentType("text/csv")
+        .setContentType("application/pdf")
         .setContentEncoding("utf-8").build();
 
-        StorageClient client = StorageClient.getInstance();
-
-        client.bucket().getStorage().create(blob,Files.readAllBytes(Paths.get(Resources.getResource("data.csv").toURI())));
+        
+        
+        client.bucket(this.bucketName).getStorage().create(blob,Files.readAllBytes(Paths.get(Resources.getResource("jh.pdf").toURI())));
+        
+        
         return true;
     }
 
 
     @Override
-    public URI downloadFile() {
+    public URI downloadFile(String invoicePdfId) {
         // TODO Auto-generated method stub
         return null;
     }
+
+
+    @Override
+    public boolean deleteAFile(String invoicePdfId) {
+             
+        return false;
+    }
+
+    
     
 }

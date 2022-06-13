@@ -6,5 +6,6 @@ import java.net.URISyntaxException;
 
 public interface StorageService {
     public boolean save(Object entity) throws IOException, URISyntaxException;
-    public URI downloadFile();
+    public URI downloadFile(String invoicePdfId);
+    public boolean deleteAFile(String invoicePdfId);
 }

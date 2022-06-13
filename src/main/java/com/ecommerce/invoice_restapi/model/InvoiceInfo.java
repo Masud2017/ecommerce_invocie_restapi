@@ -45,6 +45,10 @@ public class InvoiceInfo {
     @JsonIgnore
     @JoinColumn(name ="user_id")
     private User user;
+
+    @OneToOne(cascade = CascadeType.ALL,mappedBy = "invoiceInfo")
+    @JsonManagedReference
+    private InvoicePdfModel invoicePdfModel;
     
 
     public Long getId() {
@@ -130,6 +134,15 @@ public class InvoiceInfo {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+
+    public InvoicePdfModel getInvoicePdfModel() {
+        return this.invoicePdfModel;
+    }
+
+    public void setInvoicePdfModel(InvoicePdfModel invoicePdfModel) {
+        this.invoicePdfModel = invoicePdfModel;
     }
 
 }
