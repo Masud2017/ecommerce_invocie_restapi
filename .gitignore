@@ -31,5 +31,4 @@ build/
 
 ### VS Code ###
 .vscode/
-*.json
-*.json
+!**/src/main/resources/*.json
