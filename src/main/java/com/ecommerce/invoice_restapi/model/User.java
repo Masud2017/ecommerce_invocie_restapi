@@ -21,18 +21,18 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @Column(name = "fname")
+    @Column(name = "fname", nullable = false)
     private String firstName;
-    @Column(name = "lname")
+    @Column(name = "lname", nullable = false)
     private String lastName;
     // @JsonIgnore
-    @Column(name = "password")
+    @Column(name = "password" , nullable = false)
     private String password;
-    @Column(name = "email")
+    @Column(name = "email", nullable =  false)
     private String email;
     @Column(name = "verification_code")
     private String verificationCode;
-    @Column(name = "enabled")
+    @Column(name = "enabled", nullable = false)
     private boolean enabled;
 
     // one to one relation ship with userAddress model

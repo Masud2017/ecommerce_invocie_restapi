@@ -3,8 +3,6 @@ package com.ecommerce.invoice_restapi.service;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -12,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
@@ -146,7 +143,17 @@ public class InvoiceServiceImpl implements InvoiceService {
 
     @Override
     public InvoiceGenerationStatus generateInvoice(Integer invoiceId) {
-        // TODO Auto-generated method stub
+        InvoiceGenerationStatus status = new InvoiceGenerationStatus();
+
+        return status;
+    }
+
+    /**
+     * This method is responsible for sending the generated pdf / jpg/ png to the google drive
+     * 
+     * @return status - Integer - The status of the sending process
+     */
+    private Integer sendGeneratedAssetToCloud() {
         return null;
     }
     

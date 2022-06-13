@@ -1,5 +1,7 @@
 package com.ecommerce.invoice_restapi.controller;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.text.ParseException;
 import java.util.List;
 import java.util.Set;
@@ -21,12 +23,15 @@ import com.ecommerce.invoice_restapi.model.DeletedResponseModel;
 import com.ecommerce.invoice_restapi.model.InvoiceGenerationStatus;
 import com.ecommerce.invoice_restapi.model.InvoiceInfo;
 import com.ecommerce.invoice_restapi.service.InvoiceService;
+import com.ecommerce.invoice_restapi.service.StorageService;
 
 @RestController
 @RequestMapping(method = RequestMethod.GET, value = "/api/v1")
 public class InvoiceController {
     @Autowired
     private InvoiceService invoiceService;
+    @Autowired
+    private StorageService storageService;
 
     @PutMapping("/addinvoice")
     public ResponseEntity<InvoiceInfo> addInvoice(@RequestBody InvoiceInfo invoiceInfo) throws ParseException {
@@ -61,5 +66,10 @@ public class InvoiceController {
     @GetMapping("generateinvoice/{invoiceId}")
     public ResponseEntity<InvoiceGenerationStatus> generateInvoice(@PathVariable Integer invoiceId) {
         return ResponseEntity.ok(this.invoiceService.generateInvoice(invoiceId));
+    }
+
+    @GetMapping("/test")
+    public void test() throws IOException, URISyntaxException {
+        storageService.save(new InvoiceInfo());
     }
 }
