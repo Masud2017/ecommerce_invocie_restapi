@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1"/>
+	<link href ="css/index.css" rel="stylesheet" type = "text/css" />
+
+	<!-- <link rel="preconnect" href="https://fonts.googleapis.com"> -->
+	<!-- <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> -->
+	<!-- <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;500;600;700;800;900&display=swap" rel="stylesheet"> -->
+
+	<style>
+		* {
+	margin : 0px;
+	padding : 0px;
+}
+
+body {
+	display: flex;
+	justify-content: center;
+}
+
+.invoice-container {
+	/*border : 1px solid black;*/
+	width: 80rem;
+	position:  relative;
+	/*transform: scaleX(75%) scaleY(80%);*/
+
+
+}
+
+.invoice-metadata-container {
+	display: flex;
+	justify-content: space-between;
+}
+
+.invoice-metadata-container .invoice-metadata-container__billto {
+	
+	width : 20rem;
+	/*background-color: red;*/
+}
+
+.invoice-metadata-container .invoice-metadata-container__billto .invoice-metadata-container__billto__heading {
+	height: 3rem;
+	width : 100%;
+	background-color: black;
+	color : white;
+	font-family: 'Cairo', sans-serif;
+	font-weight: 800;
+	display: flex;
+	align-items: center;
+	font-size: 1.5rem;
+	text-indent: 1rem;
+}
+
+.invoice-metadata-container .invoice-metadata-container__billto .invoice-metadata-container__billto__body {
+	text-indent: 1rem;
+	color : black;
+	font-family: 'Cairo', sans-serif;
+	font-weight: 500;
+	line-height: 1.2rem;
+}
+
+.invoice-metadata-container .invoice-metadata-container__billto .invoice-metadata-container__billto__body  ul {
+	list-style-type: none;
+}
+
+.invoice-metadata-container .invoice-metadata-container__billto .invoice-metadata-container__billto__body  ul li {
+	font-size:  0.9rem;	
+}
+
+.logo-companyname-container {
+	display:  flex;
+	gap : 0px;
+	margin-bottom: 5px
+}
+.logo-companyname-container .logo-companyname-container__logo-container {
+	/*background-color: red;*/
+	text-align: center;
+	font-family: 'Cairo', sans-serif;
+	line-height: 1.5rem;
+	color : black;
+	padding : 5px;
+}
+.logo-companyname-container .logo-companyname-container__logo-container h3 {
+	font-size: 1.6rem;
+}
+.logo-companyname-container .logo-companyname-container__logo-container__logo {
+	height : 100px;
+	width : 100px;
+}
+
+.logo-companyname-container .logo-companyname-container__company-name {
+	display: flex;
+	justify-content: center;
+	width: 100%;
+	/*background-color: green;*/
+	font-family: 'Cairo',sans-serif;
+	position:  absolute;
+}
+
+.logo-companyname-container .logo-companyname-container__company-name h1 {
+	font-size: 3rem;
+
+}
+
+.invoice-table-container{
+	font-family: 'Cairo', sans-serif;
+	line-height: .5rem;
+	margin-top: 5rem;
+}
+
+.invoice-table-container table, th, td{
+	border:  1px solid black;
+	border-collapse: collapse;
+	padding : 1.5rem 0px;
+	transition: background-color 0.5s;
+}
+.invoice-table-container table {
+	width : 100%;
+	text-align: center;
+}
+
+.invoice-table-container th {
+	background-color : black;
+	color : white;
+}
+.invoice-table-container tr:hover {
+	background-color: grey;
+}
+
+.thanks-note {
+	text-align: center;
+	padding : 10px;
+	margin : 10px;
+}
+	</style>
+	
+	<title></title>
+</head>
+<body>
+<div name = "invoice-metadata" class = "invoice-container">
+	<div class = "logo-companyname-container">
+		<div class = "logo-companyname-container__logo-container">
+			<img src = "/home/unroot/Desktop/archive/invoice_restapi/src/main/resources/templates/invoicetemplate/asset/svg/fox-svgrepo-com.svg" alt = "something went wrong please refresh the page again" class = "logo-companyname-container__logo-container__logo"/>
+			<h3>Fox Invoicer</h3>
+			<span>Your product our responsibility</span>
+		</div>
+		<div class = "logo-companyname-container__company-name">
+			<h1>Fox Invoicer</h1>
+		</div>
+	</div>
+	
+	<div class = "invoice-metadata-container">
+		<div class = "invoice-metadata-container__billto">
+			<div class = "invoice-metadata-container__billto__heading">Bill to</div>
+			<div class = "invoice-metadata-container__billto__body">
+				<ul>
+					<li>Name</li>
+					<li>Email</li>
+					<li>Phone</li>
+					<li>Address</li>
+					<li>Postal code</li>
+					<li>City</li>
+					<li>District</li>
+				</ul>
+			</div>
+		</div>	
+
+		<div class = "invoice-metadata-container__billto" style = "float:right">
+			<div class = "invoice-metadata-container__billto__heading">Bill to</div>
+			<div class = "invoice-metadata-container__billto__body">
+				<ul>
+					<li>Name</li>
+					<li>Email</li>
+					<li>Phone</li>
+					<li>Address</li>
+					<li>Postal code</li>
+					<li>City</li>
+					<li>District</li>
+				</ul>
+			</div>
+		</div>	
+	</div>
+	
+
+	<div class = "invoice-table-container">
+		<table>
+			<tr><th>Product name</th> <th>Quantity</th> <th>Unit price</th> <th>Total</th></tr>
+			<tr><td>Pm head</td> <td>10</td> <td>100</td> <td>1000</td></tr>
+			<tr><td>Pm head</td> <td>10</td> <td>100</td> <td>1000</td></tr>
+			<tr><td>Pm head</td> <td>10</td> <td>100</td> <td>1000</td></tr>
+			<tr><td>Pm head</td> <td>10</td> <td>100</td> <td>1000</td></tr>
+			<tr><td>Pm head</td> <td>10</td> <td>100</td> <td>1000</td></tr>
+		</table>
+		
+	</div>
+	<div class = "thanks-note">
+		<p>****** Thank you so much for your purchase ******</p>
+	</div>
+</div>
+</body>
+</html>

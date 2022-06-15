@@ -1,0 +1,3 @@
+[submodule "nativePdfGenerator/lib"]
+	path = nativePdfGenerator/lib
+	url = https://github.com/gabime/spdlog.git

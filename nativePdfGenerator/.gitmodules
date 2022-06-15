@@ -1,0 +1,12 @@
+[submodule "lib"]
+	path = lib
+	url = https://github.com/gabime/spdlog.git
+[submodule "mudpdf"]
+	path = mudpdf
+	url = https://github.com/ArtifexSoftware/mupdf.git
+[submodule "podofo"]
+	path = podofo
+	url = https://github.com/mekentosj/podofo.git
+[submodule "podofo_new"]
+	path = podofo_new
+	url = https://github.com/podofo/podofo.git
